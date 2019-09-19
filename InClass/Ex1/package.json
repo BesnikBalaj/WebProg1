@@ -1,0 +1,11 @@
+{
+  "name": "in-class-excercise1",
+  "version": "1.0.0",
+  "description": "In Class Excercise Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Besnik Balaj 10417369",
+  "license": "ISC"
+}
