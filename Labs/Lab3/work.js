@@ -50,16 +50,86 @@ async function whereDoTheyWork(firstName,lastName){
     }
   }
   if (ssn !== undefined){
-    //this means we can run through weather and check
+    //this means we can run through work and check
     let truS = data[ssn].ssn;
     let j = 0;
-    //console.log('CHECK')
-    let j = 0;
+    let title = "";
+    let company = "";
+    let status = false;
     //run through the work JSON
+    for (;j<work.length;j++){
+      if (truS === work[j].ssn){
+        //so if the SSN match we have out person
+        title = work[j].jobTitle;
+        company = work[j].company;
+        if (typeof title !== "string"){
+          title = JSON.stringify(title);
+        }
+        if (typeof company !== "string"){
+          company = JSON.stringify(company);
+        }
+        status = work[j].willBeFired;
+        //console.log('RAWR')
+        //console.log(typeof work[j].willBeFired) //Boolean
+        if (status === true){ //assuming its Boolean and not string
+          status = "They will be fired."
+        }
+        else{
+          status = "They will not be fired."
+        }
+        //now combine and return thi
+        let ans = firstName + ' ' + lastName + ' - ' + title + ' at '+ company +' - '+status;
+        //console.log(typeof ans)
+        return ans;
+      }
+    }
   }
   else{
     //we couldn't get a zip most likely cause person no exist
     throw "The person most likely does not exist in the People Data, thus we can't tell"
   }
+}
 
+async function findTheHacker(ip){
+  let data = await getPeople();
+  let work = await getWork();
+  if (arguments.length < 1){
+    throw "No argument of ip was given"
+  }
+  if (arguments.length > 1){
+    throw "There was too many arguments given"
+  }
+  if (ip === undefined){
+    throw "There was no given ip"
+  }
+  //check type now
+  if (typeof ip !== "string"){
+    throw "The given ip is not of type string"
+  }
+  let i = 0;
+  let ssn = undefined;
+  for (;i<work.length;i++){
+    if (ip === work[i].ip){
+      ssn = work[i].ssn;
+    }
+  }
+  if (ssn === undefined){
+    throw "Dear Boss - We could not find the hacker with that IP";
+  }
+  let j = 0;
+  for (;j<data.length;j++){
+    if (ssn === data[j].ssn){
+      let ans = data[j].firstName + ' ' +data[j].lastName + ' is the hacker!'
+      return ans;
+    }
+  }
+
+}
+
+module.exports = {
+  getPeople,
+  getWeather,
+  getWork,
+  whereDoTheyWork,
+  findTheHacker
 }

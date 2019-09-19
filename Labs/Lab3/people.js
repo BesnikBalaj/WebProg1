@@ -24,15 +24,28 @@ async function getPersonById(id){
   if (!Number.isInteger(id)){
     throw "The id given is not an integer"
   }
-  console.log ("The length of objects is: " + data.length)
-  if (id <= 0 || id > data.length){
-    throw "The id is out the range of the JSON array of objects"
+  //console.log ("The length of objects is: " + data.length)
+  if (id <= 0 ){
+    throw "The id is negative or 0, 0 isn't a possible id currently"
+  }
+  if (id > data.length){
+    throw "The id is out the range of the JSON array of objects - larger than People"
   }
 
   let actId = id-1;
   //let ans = JSON.stringify(data[actId].lastName) + JSON.stringify(data[actId].firstName)
-  let ans = data[actId].firstName+ ' ' + data[actId].lastName
-  return JSON.stringify(ans);
+  let fName = data[actId].firstName;
+  let lName = data[actId].lastName;
+  if (typeof fName !== "string"){
+    JSON.stringify(fName);
+  }
+  if (typeof lName !== "string"){
+    JSON.stringify(lName);
+  }
+
+  let ans = fName + ' ' + lName;
+  //return JSON.stringify(ans);
+  return ans;
 }
 
 async function lexIndex(index){
@@ -54,9 +67,13 @@ async function lexIndex(index){
     throw "The index given is not an integer"
   }
   let  data = await getPeople();
-  console.log ("The length of objects is: " + data.length)
-  if (index <= 0 || index > data.length){
-    throw "The id is out the range of the JSON array of objects"
+  //console.log ("The length of objects is: " + data.length)
+  if (index < 0){
+    throw "The index is negative"
+  }
+
+  if (index > data.length){
+    throw "The id is out the range of the JSON array length"
   }
 
   let newArr = [];
@@ -71,11 +88,20 @@ async function lexIndex(index){
   let actId = index;
   //let ans = JSON.stringify(data[actId].lastName) + JSON.stringify(data[actId].firstName)
   let ans2 = newArr[actId].split(" ");
-  let actAns = ans2[1] + ' ' +ans2[0];
+  let fName = ans2[1];
+  let lName = ans2[0];
+  if (typeof fName !== "string"){
+    JSON.stringify(fName);
+  }
+  if (typeof lName !== "string"){
+    JSON.stringify(lName);
+  }
+  let actAns = fName + ' ' +lName;
   //return newArr //for testing purpose
-  return JSON.stringify(actAns);
-
+  //return JSON.stringify(actAns);
+  return actAns;
 }
+
 async function firstNameMetrics(){
   //Do I need to check if the value actually exist?
   let  data = await getPeople();
@@ -100,11 +126,11 @@ async function firstNameMetrics(){
     else{
       //we don't have the first case so now we can check the name's length
       //making an executive decision on length
-      if (shortestNameLength >= data[i].firstName.length){
+      if (shortestNameLength > data[i].firstName.length){
         shortestName = i;
         shortestNameLength = data[i].firstName.length;
       }
-      if (longestNameLength <= data[i].firstName.length){
+      if (longestNameLength < data[i].firstName.length){
         longestName = i;
         longestNameLength = data[i].firstName.length;
       }
@@ -133,8 +159,10 @@ async function firstNameMetrics(){
     totalLetters: totalLetters,
     totalVowels: totalVowels,
     totalConsonants: totalConsonants,
-    longestName: JSON.stringify(data[longestName].firstName),
-    shortestName: JSON.stringify(data[shortestName].firstName)
+    //longestName: JSON.stringify(data[longestName].firstName),
+    longestName: data[longestName].firstName,
+    //shortestName: JSON.stringify(data[shortestName].firstName)
+    shortestName: data[shortestName].firstName
   }
 
 	//Letters = 2982

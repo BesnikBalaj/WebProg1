@@ -53,7 +53,8 @@ async function shouldTheyGoOutside(firstName, lastName){
     //console.log('CHECK')
     for (;weather.length;j++){
       if (weather[j].zip === truZip){
-        if (weather[j].zip >= 34){
+        if (weather[j].temp >= 34){
+          //console.log(weather[j].zip)
           return "Yes, " +firstName+ " should go Outside";
         }
         else{
