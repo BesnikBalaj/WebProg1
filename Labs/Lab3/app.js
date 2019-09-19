@@ -211,6 +211,15 @@ async function main(){
     }catch(e){
         console.log (e);
     }
+    try{
+        console.log('TEST 4_1_1')
+        const peopledata = await people.getPeople()
+        const weatherdata = await weather.getWeather()
+        const ans = await weather.shouldTheyGoOutside("cALLI", "oNDRAsek")
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
 
     try{
         console.log('TEST 4_2')
@@ -367,6 +376,24 @@ async function main(){
         const peopledata = await people.getPeople()
         const weatherdata = await weather.getWeather()
         const ans = await work.whereDoTheyWork("Demetra", "Tarling")
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
+    try{
+        console.log('TEST 5_8_1')
+        const peopledata = await people.getPeople()
+        const weatherdata = await weather.getWeather()
+        const ans = await work.whereDoTheyWork("DeMetRa", "tarLing")
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
+    try{
+        console.log('TEST 5_8_1_1')
+        const peopledata = await people.getPeople()
+        const weatherdata = await weather.getWeather()
+        const ans = await work.whereDoTheyWork("haNk", "tarLing")
         console.log (ans)
     }catch(e){
         console.log (e);
