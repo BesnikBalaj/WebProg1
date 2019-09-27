@@ -72,7 +72,7 @@ async function lexIndex(index){
     throw "The index is negative"
   }
 
-  if (index > data.length){
+  if (index > data.length-1){
     throw "The id is out the range of the JSON array length"
   }
 

@@ -1,0 +1,15 @@
+{
+  "name": "cs-546-lab-4",
+  "version": "1.0.0",
+  "description": "My lab 4 module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Besnik Balaj 10417369",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.3.2",
+    "package.json": "^2.0.1"
+  }
+}

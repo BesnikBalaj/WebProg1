@@ -11,6 +11,22 @@ async function main(){
     }catch(e){
         console.log (e);
     }
+    try{
+        console.log('TEST 1_1')
+        const peopledata = await people.getPeople()
+        const ans = await people.getPersonById(500)
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
+    try{
+        console.log('TEST 1_2')
+        const peopledata = await people.getPeople()
+        const ans = await people.getPersonById(1)
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
 
     try{
         console.log('TEST 1_1')
@@ -79,6 +95,14 @@ async function main(){
         console.log('TEST 2')
         const peopledata = await people.getPeople()
         const ans = await people.lexIndex(2)
+        console.log (ans)
+    }catch(e){
+        console.log (e);
+    }
+    try{
+        console.log('TEST 2_1_1')
+        const peopledata = await people.getPeople()
+        const ans = await people.lexIndex(500)
         console.log (ans)
     }catch(e){
         console.log (e);
