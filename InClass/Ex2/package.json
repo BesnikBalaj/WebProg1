@@ -1,11 +1,15 @@
 {
   "name": "InClass2",
   "version": "1.0.0",
-  "description": "My InClass 2",
+  "description": "Our InClass 2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "Besnik Balaj 10417369",
-  "license": "ISC"
+  "author": "Amanda Ly and Besnik Balaj",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.3.2",
+    "package.json": "^2.0.1"
+  }
 }
