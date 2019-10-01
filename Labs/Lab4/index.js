@@ -26,6 +26,7 @@ async function main() {
   //Create an animal named Sasha with the type of Dog
   try {
     let Sasha = await pokemon.create("Sasha","Dog");
+    console.log(Sasha);
     let SashaGet = await pokemon.get(String(Sasha._id));
     console.log(SashaGet); //log the newly created animal
   }
@@ -62,7 +63,7 @@ async function main() {
   try {
     let newLucy = await pokemon.create("Lucy","Dog");
     console.log('Let us put in a new Lucy and remove her')
-    //console.log(newLucy)
+    console.log(newLucy)
     //console.log("Hello?")
     let removedL = await pokemon.remove(String(newLucy._id));
     //console.log(removedL); //log the newly created animal

@@ -25,6 +25,7 @@ async function create(name,animalType) {
   const pokeDex = await pokemon();
   //now we need to set an object
   //const mortimer = await animals.create("Mortimer", "Giraffe"); this will be push
+  //name,animalType doesn't work lol
   let poke = {
     name: name,
     animalType: animalType
@@ -45,6 +46,7 @@ async function create(name,animalType) {
 async function getAll(){
   //Takes no arguments
   //Should we care if any arguments come in?
+  //Most likely not?
   if (arguments.length > 0){
     console.log("Some arguments were passed but not needed");
   }
@@ -126,6 +128,7 @@ async function rename(id,newName){
    //...
 //)
   //console.log('Rawr?')
+  //https://docs.mongodb.com/manual/reference/method/db.collection.updateOne/
   const pokeEvolve = await pokeDex.updateOne({_id: pokeEV},{$set: {name: newName } });
   //if update succeeds we need to return the animal as it is after it is updated
   const thePokemon = await pokeDex.findOne({_id: pokeEV});
