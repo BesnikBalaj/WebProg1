@@ -74,7 +74,7 @@ async function getTask(id){
 async function completeTask(taskId){
   //put in le code brudda
   let timeJohto = new Date();
-  //console.log(timeJohto);
+  console.log(timeJohto);
   if (arguments.length > 1){
     throw "The amount of arguments given was more than 1"
   }

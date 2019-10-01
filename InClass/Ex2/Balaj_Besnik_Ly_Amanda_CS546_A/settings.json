@@ -1,0 +1,6 @@
+{
+  "mongoConfig": {
+    "serverUrl": "mongodb://localhost:27017/",
+    "database": "Besnik_Balaj_and_Amanda_Ly_ex2"
+  }
+}
