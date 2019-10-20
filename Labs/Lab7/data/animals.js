@@ -186,8 +186,8 @@ async function fullyUpdate(id, newName, newType){
     throw "No current post inside  with that ID"
   }
 	const oldName = possibleP.name;
-	console.log(typeof oldName);
-	if (typeof newName !== undefined){
+	//console.log(typeof oldName);
+	if (typeof newName !== "undefined"){
 		if (typeof newName !== "string"){
 	    throw "The id argument is need to be passed in as a string"
 	  }
@@ -203,7 +203,9 @@ async function fullyUpdate(id, newName, newType){
 		//console.log(lePosts);
 		//console.log(postsARR);
   }
-  if (typeof newType !== undefined){
+	//console.log('BREAK')
+	//console.log(newType);
+  if (typeof newType !== "undefined"){
 		if (typeof newType !== "string"){
 	    throw "The id argument is need to be passed in as a string"
 	  }

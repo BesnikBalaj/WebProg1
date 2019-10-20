@@ -139,7 +139,7 @@ async function Update(id, newTitle, newContent){
 		const posspoke2 = await pokeList.updateOne({_id: possibleP.author._id},{$set:{posts:newArr}});
 		//do it slow way rn which is array
 		//I believe this should hold the animal with the array that holds the now changed object
-    pokeP.updateOne({_id:postEV},{$set: {title: newTitle}});
+    const holder = pokeP.updateOne({_id:postEV},{$set: {title: newTitle}});
 		//now  we need to update the thingy in the array of that post and I guess for loop
   }
   if (newContent !== undefined){
@@ -147,10 +147,11 @@ async function Update(id, newTitle, newContent){
 	    throw "The content argument is need to be passed in as a string"
 	  }
     //then we update le title
-    pokeP.updateOne({_id:postEV},{$set: {content: newContent}});
+    const holder2 = pokeP.updateOne({_id:postEV},{$set: {content: newContent}});
   }
 	//done updating I think so do I return?
   const possibleUpdatedP = await pokeP.findOne({_id: postEV});
+	console.log(possibleUpdatedP);
   return possibleUpdatedP;
 }
 
