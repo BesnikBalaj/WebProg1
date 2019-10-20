@@ -43,7 +43,8 @@ router.get('/:id', async (req, res) => {
 		res.status(200).json(getPost);
 	}
 	catch(e){
-		console.log(e);
+		//console.log('EXCUSEEE ME?')
+		//console.log(e);
 		res.status(404).json({message:"We could not get that post with that ID"});
 	}
 });

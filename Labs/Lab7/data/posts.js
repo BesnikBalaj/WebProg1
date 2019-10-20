@@ -42,11 +42,17 @@ async function Create(title, author, content){
     throw "need content to be provided"
   }
 	const postsDex = await pokeposts();
+	const pokeINFO = await pokemon();
+	const pokeAniID = pokeID(author);
+	const animal = await pokeINFO.findOne({_id:pokeAniID});;
   let post = {
     title: title,
-    author: author,
-    content: content
-  }
+    content: content,
+		author: {
+			_id: pokeAniID,
+			name: animal.name
+		}
+  };
 	const pokeinfo = await postsDex.insertOne(post);
   //https://github.com/stevens-cs546-cs554/CS-546/blob/master/Lectures/lecture_04/code/dogs.js
   if (pokeinfo.insertedCount === 0){
@@ -54,9 +60,11 @@ async function Create(title, author, content){
   }
 	const newpokeId = pokeinfo.insertedId;
 	console.log(typeof newpokeId);
-	const pokeINFO = await pokemon();
-	const pokeAniID = pokeID(author);
-	const newPostPokeUpdate = pokeINFO.updateOne({_id: pokeAniID}, {$addToSet: {posts: String(newpokeId)}});
+	const thingy = {
+		_id: newpokeId,
+		title:title
+	};
+	const newPostPokeUpdate = pokeINFO.updateOne({_id: pokeAniID}, {$addToSet: {posts: thingy}});
   //console.log(pokeinfo) //error checking
   return post;
 }
@@ -76,7 +84,8 @@ async function Read(id){
   }
 	const postEV = pokeID(id);
   const pokeP = await pokeposts();
-	const lePokePost = pokeP.findOne({_id:postEV});
+	const lePokePost = await pokeP.findOne({_id:postEV});
+	//console.log(lePokePost);
 	if (lePokePost === null){
     //then we didn't find it lol
     throw "There exists no post with that ID"
@@ -108,11 +117,35 @@ async function Update(id, newTitle, newContent){
     //Just break out earlier than doing nothing lol
     throw "No current post inside  with that ID"
   }
-	if (newTitle !== null){
+	if (newTitle !== undefined){
+		if (typeof newTitle !== "string"){
+	    throw "The title argument is needed to be passed in as a string"
+	  }
+		//then I got to update the array
     //then we update le title
+		//have id and name
+		let oldTitle = possibleP.title;
+		const pokeList = await pokemon();
+		const posspoke = await pokeList.findOne({_id: possibleP.author._id});
+		let i = 0;
+		let newArr = [];
+		for (i;i < posspoke.posts.length;i++){
+			//now gotta do the le find and put it in a new object schema and append that to array THOUGHTS
+			if (posspoke.posts[i].title === oldTitle){
+				posspoke.posts[i].title = newTitle;
+			}
+		}
+		newArr = posspoke.posts; //have new array equal to that updated one and then just set it
+		const posspoke2 = await pokeList.updateOne({_id: possibleP.author._id},{$set:{posts:newArr}});
+		//do it slow way rn which is array
+		//I believe this should hold the animal with the array that holds the now changed object
     pokeP.updateOne({_id:postEV},{$set: {title: newTitle}});
+		//now  we need to update the thingy in the array of that post and I guess for loop
   }
-  if (newContent !== null){
+  if (newContent !== undefined){
+		if (typeof newContent !== "string"){
+	    throw "The content argument is need to be passed in as a string"
+	  }
     //then we update le title
     pokeP.updateOne({_id:postEV},{$set: {content: newContent}});
   }
@@ -143,6 +176,23 @@ async function Delete(id){
 	if (thePokemon.deletedCount === 0){
     throw "We could not delete the animal with that id Given"
   }
+	/////now we gotta delete at animal
+	let oldTitle = lostPokemon.title;
+	const pokeList = await pokemon();
+	const posspoke = await pokeList.findOne({_id: lostPokemon.author._id});//need to find animal with author id
+	//posspoke is the pokemon that is acquired from post author id
+	let i = 0;
+	let newArr = [];
+	for (i;i < posspoke.posts.length;i++){
+		//now gotta do the le find and put it in a new object schema and append that to array THOUGHTS
+		if (posspoke.posts[i].title === oldTitle){
+			continue; //cause we just don't want it?
+		}
+		newArr.push(posspoke.posts[i]);
+	}
+	const posspoke2 = await pokeList.updateOne({_id: lostPokemon.author._id},{$set:{posts:newArr}});
+	//pokeP.updateOne({_id:postEV},{$set: {title: newTitle}});
+	newArr = posspoke.posts;
   return lostPokemon;
 }
 

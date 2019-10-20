@@ -1,6 +1,7 @@
 const mongoConn = require("./../mongoConnection");
 const mongoColl = require("./../mongoCollections");
 const pokemon = mongoColl.animals;
+const pokeposts = mongoColl.posts;
 const posts = require("./posts.js");
 const pokeID = require('mongodb').ObjectID;
 
@@ -29,7 +30,7 @@ async function create(name, animalType){
 		animalType: animalType,
 		likes: [], //new
 		posts: [] //new
-	}
+	};
 	//https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
   //https://stackoverflow.com/questions/36792649/whats-the-difference-between-insert-insertone-and-insertmany-method
   //https://docs.mongodb.com/manual/reference/method/db.collection.insert/
@@ -98,6 +99,23 @@ async function remove(id){
   //Below was used from Professor Hill's Lecture 4 Git code
   //https://github.com/Stevens-CS546/CS-546/blob/master/Lecture%20Code/lecture_04/dogs.js
 	const lostPokemon = await pokeDex.findOne({_id: pokeEV});
+	//need to take the lists of posts getting now deleted
+	let postsArr = lostPokemon.posts;//this holds array of all the posts with that animal
+	let i = 0;
+	const postsDex = await pokeposts();
+	for (i;i<postsArr.length;i++){
+		//rawr rawr
+		let postID = postsArr[i]._id;
+		//console.log('BREAK');
+		//console.log(postID);
+		const postsEV = pokeID(postID);
+	  const lostpostPokemon = await postsDex.findOne({_id: postsEV});
+	  const thepostPokemon = await postsDex.removeOne({_id: postsEV});
+		//console.log('Wassup')
+		if (thepostPokemon.deletedCount === 0){
+	    throw "We could not delete the animal with that id Given"
+	  }
+	}
   const thePokemon = await pokeDex.removeOne({_id: pokeEV});
   if (thePokemon.deletedCount === 0){
     throw "We could not delete the animal with that id Given"
@@ -136,6 +154,25 @@ async function rename(id,newName){
   return thePokemon;
 }
 
+async function possibleNameUpdate(dumbArray){
+	//Rada Rada - Dude from Chowder whose name I, Schnitzel>?
+	thingToSwitch = [];
+	const thingy = {
+		_id: "",
+		title:""
+	};
+	let apple = 0;
+	for (apple;apple < dumbArray.length;apple++){
+		//now gotta do the le find and put it in a new object schema and append that to array THOUGHTS
+		const postObject = await posts.Read(apple);
+		thingy._id = postObject._id;
+		thingy.title = postObject._id;
+		thingToSwitch.push(thingy);
+	}
+	//Should now do a thingy where I return le array
+	return thingToSwitch;
+}
+
 async function fullyUpdate(id, newName, newType){
 	if (typeof id !== "string"){
     throw "The id argument is need to be passed in as a string"
@@ -148,11 +185,28 @@ async function fullyUpdate(id, newName, newType){
     //Just break out earlier than doing nothing lol
     throw "No current post inside  with that ID"
   }
-	if (typeof newName !== null){
+	const oldName = possibleP.name;
+	console.log(typeof oldName);
+	if (typeof newName !== undefined){
+		if (typeof newName !== "string"){
+	    throw "The id argument is need to be passed in as a string"
+	  }
     //then we update le title
     pokeP.updateOne({_id:postEV},{$set: {name: newName}});
+		//now need to go through all posts and change name of potential author
+		const postsDex = await pokeposts();
+	  //https://api.jquery.com/toArray/
+		//So bottom line gets me all posts that animal made
+		postsDex.updateMany({"author.name": oldName},{$set: {"author.name": newName}});
+		//Let's find all and put in array
+		//const lePosts = await postsDex.find().toArray();
+		//console.log(lePosts);
+		//console.log(postsARR);
   }
-  if (typeof newType !== null){
+  if (typeof newType !== undefined){
+		if (typeof newType !== "string"){
+	    throw "The id argument is need to be passed in as a string"
+	  }
     //then we update le title
     pokeP.updateOne({_id:postEV},{$set: {animalType: newType}});
   }
