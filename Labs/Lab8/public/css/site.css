@@ -1,0 +1,55 @@
+html,
+body {
+  background: #dedede;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 18py;
+}
+
+main {
+  max-width: 75%;
+  margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #008080;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 355;
+  text-decoration:underline;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 2;
+  font-style: oblique;
+  background-color: #d3d3d3;
+}

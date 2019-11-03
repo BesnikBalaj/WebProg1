@@ -1,0 +1,104 @@
+html,
+body {
+  background: #dedede;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 18px;
+  text-align: left;
+}
+
+main {
+  margin-top: 20px;
+  max-width: 75%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #008080;
+  margin-bottom: 10px;
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+li {
+	font-weight: bold;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 2;
+  font-style: oblique;
+  background-color: #d3d3d3;
+}
+input::placeholder {
+  color: #000111;
+}
+
+input {
+  width: 169px;
+}
+
+p:last-child {
+  background: #ffb6c1;
+}
+
+.is-prime {
+	color: #00E676;
+}
+
+.not-prime {
+	color: #FF3D00;
+}
+
+#attempts {}
+
+.ol{
+  text-align: left;
+}
+
+.button {
+  background-color: #808080;
+  color: #ffffff;
+  border-style: dashed;
+  border-radius: 4px;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 55px;
+  cursor: crosshair;
+}
+
+.button:hover {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border-style: dashed;
+  border-radius: 4px;
+  padding: 15px 32px;
+  margin: 5px 3px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 55px;
+  cursor: crosshair;
+}
+
+header {
+  border-bottom: 1px solid #afafaf;
+}
+
+footer {
+	font-size: 12px;
+	font-family: Helvetica;
+}
