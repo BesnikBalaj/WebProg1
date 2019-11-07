@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Le Login</title>
+    <!-- <link rel="stylesheet" href="/public/css/main.css"> -->
+</head>
+<body>
+    <main>
+    <form method = "POST" id="login-form" action="login">
+		    Please provide your username and password<br />
+		    <label>Login:</label> <br />
+		    <input id="username" type="text" name="username" placeholder="USERNAME"> <br />
+        <input id="password" type="password" name="password" placeholder="PASSWORD"> <br />
+		    <button class="button" type="submit">Log In</button>
+		</form>
+    {{#if error}}
+      <p>
+        {{error}}
+      </p>
+    {{/if}}
+    </main>
+</body>
+</html>
